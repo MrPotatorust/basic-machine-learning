@@ -5,6 +5,8 @@
 int main(int argc, char *argv[])
 {
 
-    parse("f");
+    int parseReturnCode = parse("./dataset/tips.csv");
+
+    printf("%i \n", parseReturnCode);
     return 0;
 }
