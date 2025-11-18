@@ -22,16 +22,17 @@ int parse(char *filePath)
     fgets(buffer, sizeof(buffer), filePointer);
     
     int collumnCount = getCollumnCount(buffer);
+
     Col *collumns = parseCols(buffer);
 
 
-    // float *data = malloc(sizeof(float)); 
-
+    float *data = malloc(sizeof(float)); 
+    int rowCount = 0;
 
     while ((fgets(buffer, sizeof(buffer), filePointer)) > 0){
-        
-      
-        // Print the read data
+        data = realloc
+
+        rowCount++;
     }
 
 
@@ -84,5 +85,9 @@ int getCollumnCount(char buffer[]){
     }
     
     return count;
+    
+}
+
+int getData(int row, int col, float data[], int colCount){
     
 }
