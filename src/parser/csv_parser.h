@@ -26,6 +26,6 @@ typedef struct Col {
 
 int parse(char* filePath);
 
-Col **parseCols(char buffer[]);
+Col *parseCols(char buffer[]);
 
 #endif

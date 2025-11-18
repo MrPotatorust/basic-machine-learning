@@ -17,11 +17,12 @@ int parse(char *filePath)
         return PARSE_FILE_ERROR;
     }
 
-    // Get the collumn names
-
+    // Get the collumn names, for now the dataType is hardCoded to float
     fgets(buffer, sizeof(buffer), filePointer);
-    parseCols(buffer);
-    return 0;
+    Col *collumns = parseCols(buffer);
+
+
+    
 
     while ((fgets(buffer, sizeof(buffer), filePointer)) > 0){
       
@@ -35,19 +36,32 @@ int parse(char *filePath)
     return PARSE_SUCCESS;
 };
 
-Col **parseCols(char buffer[]){
-    // printf("%s", buffer);
-    // Col collumns[]; 
+Col *parseCols(char buffer[]){
+    
     Col *collumns = malloc(sizeof(Col));
+    int i = 0;
 
-    int i;
+    if(collumns == NULL){
+        return NULL;
+    }
+
 
     char* token = strtok(buffer, ",");
 
     while(token != NULL){
-        printf("%s \n", token);
-        collumns = realloc
+        Col collumn;
+
+        collumn.type = INT;
+        strcpy(collumn.name, token);
+        collumns[i] = collumn;
+        collumns = realloc(collumns, (i+2) * sizeof(Col));
+
+        if (collumns == NULL){
+            return NULL;
+        }
         token = strtok(NULL, ",");
         i++;
     }
+
+    return collumns;
 }; 
