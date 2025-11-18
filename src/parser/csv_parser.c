@@ -9,21 +9,45 @@ int parse(char *filePath)
 
     filePointer = fopen(filePath, "r");
 
-    size_t bytesRead;
-    char buffer;
+    char buffer[BUFFER_SIZE];
+
 
     if (filePointer == NULL)
     {
         return PARSE_FILE_ERROR;
     }
 
-    while ((bytesRead = fread(buffer, 1, sizeof(buffer) - 1, filePointer)) > 0){
+    // Get the collumn names
+
+    fgets(buffer, sizeof(buffer), filePointer);
+    parseCols(buffer);
+    return 0;
+
+    while ((fgets(buffer, sizeof(buffer), filePointer)) > 0){
       
       
         // Print the read data
-        printf("%s", buffer);
     }
-    
+
+
+    fclose(filePointer);
 
     return PARSE_SUCCESS;
-}
+};
+
+Col **parseCols(char buffer[]){
+    // printf("%s", buffer);
+    // Col collumns[]; 
+    Col *collumns = malloc(sizeof(Col));
+
+    int i;
+
+    char* token = strtok(buffer, ",");
+
+    while(token != NULL){
+        printf("%s \n", token);
+        collumns = realloc
+        token = strtok(NULL, ",");
+        i++;
+    }
+}; 
