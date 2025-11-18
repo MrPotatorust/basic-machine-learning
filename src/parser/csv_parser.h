@@ -28,4 +28,6 @@ int parse(char* filePath);
 
 Col *parseCols(char buffer[]);
 
+int getCollumnCount(char buffer[]);
+
 #endif

@@ -17,15 +17,19 @@ int parse(char *filePath)
         return PARSE_FILE_ERROR;
     }
 
-    // Get the collumn names, for now the dataType is hardCoded to float
+    // Get the collumn names, for now the 
+    //! DataType is hardCoded to float
     fgets(buffer, sizeof(buffer), filePointer);
+    
+    int collumnCount = getCollumnCount(buffer);
     Col *collumns = parseCols(buffer);
 
 
-    
+    // float *data = malloc(sizeof(float)); 
+
 
     while ((fgets(buffer, sizeof(buffer), filePointer)) > 0){
-      
+        
       
         // Print the read data
     }
@@ -65,3 +69,20 @@ Col *parseCols(char buffer[]){
 
     return collumns;
 }; 
+
+
+// Gets the collumn count by counting commas
+int getCollumnCount(char buffer[]){
+    int count = 1;
+
+    while (*buffer != '\0')
+    {
+        if (*buffer == ','){
+            count++;
+        }
+        buffer++;
+    }
+    
+    return count;
+    
+}
