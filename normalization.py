@@ -15,8 +15,14 @@ import matplotlib.pyplot as plt
 def main():
     df = pd.read_csv('./dataset/tips.csv')
 
-    df.to_csv('./dataset/normalized_tips.csv', index=False)
-    print("Hello World!")
+    normalizedDf = df.replace({
+        'sex': {'Male': 0, 'Female': 1},
+        'smoker': {'No': 0, 'Yes': 1},
+        'day': {'Thur': 0, 'Fri': 1, 'Sat': 2, 'Sun': 3},
+        'time': {'Lunch': 0, 'Dinner': 1}
+    })
+
+    normalizedDf.to_csv('./dataset/normalized_tips.csv', index=False)
 
 if __name__ == "__main__":
     main()
