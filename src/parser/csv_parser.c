@@ -25,12 +25,12 @@ CSV *parse(char *filePath)
     
     int rowCount = getRowCount(filePointer);
 
-    Col *collumns = parseCols(buffer);
+    Col *collumns = parseCols(buffer, collumnCount);
 
     int i = 0;
-    float *data = malloc(collumnCount * rowCount * sizeof(float)); 
+    Row *rows = malloc(collumnCount * rowCount * sizeof(float)); 
     
-    if(data == NULL){
+    if(rows == NULL){
         return NULL;
     }
     
@@ -39,7 +39,7 @@ CSV *parse(char *filePath)
 
         while(token != NULL){
 
-            data[i] = atof(token);
+            rows[i] = atof(token);
 
             token = strtok(NULL, ",");
             i++;
@@ -47,20 +47,20 @@ CSV *parse(char *filePath)
 
     }
 
-
-
     fclose(filePointer);
+
 
     CSV *csv = malloc(sizeof(CSV));
     
     csv->collumns = collumns;
-    csv->rows = data;
-
+    csv->rows = rows;
+    csv->collumnCount = collumnCount;
+    csv->rowCount = rowCount;
 
     return csv;
 }
 
-Col *parseCols(char buffer[]){
+Col *parseCols(char buffer[], int collumnCount){
     
     Col *collumns = malloc(sizeof(Col));
     int i = 0;
@@ -72,7 +72,7 @@ Col *parseCols(char buffer[]){
 
     char* token = strtok(buffer, ",");
 
-    while(token != NULL){
+    while(token != NULL && i < collumnCount){
         Col collumn;
 
         collumn.type = INT;
@@ -120,6 +120,42 @@ int getRowCount(FILE *filePointer){
     return rowCount;
 }
 
-int getData(int row, int col, float data[], int colCount){
+// int getData(int row, int col, float data[], int colCount){
 
+// }
+
+int freeCSV(CSV *csv) {
+
+    if(freeCols(csv) != 0){
+        return COL_FREE_FAIL;
+    }
+    
+    if(freeRows(csv) != 0){
+        return ROW_FREE_FAIL;
+    }
+
+    free(csv);
+
+    csv = NULL;
+
+    return 0;
+}
+
+int freeCols(CSV *csv){
+
+    for(int i = 0; i < csv->collumnCount; i++){
+        free(&csv->collumns[i]);
+    }
+
+    return 0;
+    
+}
+
+int freeRows(CSV *csv){
+    
+    for(int i = 0; i < csv->rowCount; i++){
+        free(&csv->rows[i]);
+    }
+
+    return 0;
 }
