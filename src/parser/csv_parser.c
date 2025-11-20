@@ -2,7 +2,7 @@
 
 #include "csv_parser.h"
 
-int parse(char *filePath)
+CSV *parse(char *filePath)
 {
 
     FILE *filePointer;
@@ -14,7 +14,7 @@ int parse(char *filePath)
 
     if (filePointer == NULL)
     {
-        return PARSE_FILE_ERROR;
+        return NULL;
     }
 
     // Get the collumn names, for now the 
@@ -31,7 +31,7 @@ int parse(char *filePath)
     float *data = malloc(collumnCount * rowCount * sizeof(float)); 
     
     if(data == NULL){
-        return PARSE_FILE_ERROR;
+        return NULL;
     }
     
     while ((fgets(buffer, sizeof(buffer), filePointer)) > 0){        
@@ -51,7 +51,13 @@ int parse(char *filePath)
 
     fclose(filePointer);
 
-    return PARSE_SUCCESS;
+    CSV *csv = malloc(sizeof(CSV));
+    
+    csv->collumns = collumns;
+    csv->rows = data;
+
+
+    return csv;
 }
 
 Col *parseCols(char buffer[]){

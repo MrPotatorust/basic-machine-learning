@@ -2,9 +2,6 @@
 #ifndef CSV_PARSER_H
 #define CSV_PARSER_H
 
-#define PARSE_SUCCESS 0
-#define PARSE_FILE_ERROR -1
-
 #define COL_NAME 24
 #define BUFFER_SIZE 256
 
@@ -22,10 +19,16 @@ typedef struct Col {
 //     float data[];
 // } Row;
 
-int parse(char *filePath);
+typedef struct CSV
+{
+    Col *collumns;
+    float *rows;
+} CSV;
+
+
+CSV *parse(char *filePath);
 Col *parseCols(char buffer[]);
 int getCollumnCount(char buffer[]);
 int getRowCount(FILE *filePointer);
-// float *splitRow(char buffer[], int collumnCount);
 
 #endif

@@ -4,8 +4,12 @@
 
 int main(int argc, char *argv[])
 {
-    int parseReturnCode = parse("./dataset/normalized_tips.csv");
+    CSV *csv = parse("./dataset/normalized_tips.csv");
 
-    printf("Return code: %i \n", parseReturnCode);
+    if(csv == NULL){
+        return 1;
+    }
+
+    printf("Parsed file successfuly \n");
     return 0;
 }
