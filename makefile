@@ -1,2 +1,2 @@
 compile:
-	@ gcc ./src/main.c ./src/parser/csv_parser.c -o main
+	@ gcc ./src/main.c ./src/parser/csv_parser.c ./src/model/model.c -o main

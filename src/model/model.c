@@ -1,15 +1,27 @@
 #include "includes.h"
+#include "model.h"
 
-float calculateNewWeight(){
+struct Model model_Constructor(){
+    struct Model server;
 
+    server.train = train;
+    server.loadData = loadData;
+    server.setTrainingConfig = setTrainingConfig;
+
+    return server;
 }
 
-float calculateNewBias(){
-
+void loadData(struct Model *self, CSV *csv, char *labelName, char **featureNames){
+    self->data = csv;
+    self->labelName = labelName;
+    self->featureNames = featureNames;
 }
 
-float calculateSquareLoss(){
-
+void setTrainingConfig(struct Model *self, int epochs, float learningRate, float batchSize){
+    self->epochs = epochs;
+    self->learningRate = learningRate;
+    self->batchSize = batchSize;
 }
 
-float 
+void train(struct Model *self){
+};
