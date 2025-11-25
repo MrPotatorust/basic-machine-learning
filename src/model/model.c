@@ -47,7 +47,16 @@ void train(struct Model *self){
 };
 
 float calculateLoss(struct Model *self){
+    int exampleCount = self->data->rowCount;
+    char *featureNames[] = {"total_bill"};
+    char *label = "tip";
     
+
+    float predictionVal = self->predict(self, featureNames);
+
+    printf("predict %f \n", predictionVal);
+
+    return predictionVal;
 }
 
 float predict(struct Model *self, float features[]){
