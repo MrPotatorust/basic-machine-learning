@@ -21,7 +21,7 @@ struct Model model_Constructor(){
     self.train = train;
     self.loadData = loadData;
     self.setTrainingConfig = setTrainingConfig;
-    self.getLoss = getLoss;
+    self.calculateLoss = calculateLoss;
     self.predict = predict;
 
     return self;
@@ -46,8 +46,8 @@ void train(struct Model *self){
     printf("Training");
 };
 
-float getLoss(struct Model *self){
-
+float calculateLoss(struct Model *self){
+    
 }
 
 float predict(struct Model *self, float features[]){
