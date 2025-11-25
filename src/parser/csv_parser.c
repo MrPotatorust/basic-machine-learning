@@ -120,9 +120,27 @@ int getRowCount(FILE *filePointer){
     return rowCount;
 }
 
-// int getData(int row, int col, float data[], int colCount){
+Row getData(CSV *csv, int rowIndex, int colIndex){
+    int arrIndex;
+    
+    if(!csv || !csv->rows){
+        perror("Could not getData from CSV, CSV doesnt exist");
+        return 0;
+    }
 
-// }
+    if(rowIndex > csv->rowCount-1){
+        perror("Could not getData from CSV, the rowIndex is too big");
+        return 0;
+    }
+    if(colIndex > csv->collumnCount-1){
+        perror("Could not getData from CSV, the colIndex is too big");
+        return 0;
+    }
+    
+    arrIndex = csv->collumnCount * rowIndex + colIndex;
+
+    return csv->rows[arrIndex];
+}
 
 int freeCSV(CSV *csv) {
 

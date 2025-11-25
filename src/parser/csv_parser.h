@@ -36,9 +36,9 @@ CSV *parse(char *filePath);
 Col *parseCols(char buffer[], int collumnCount);
 int getCollumnCount(char buffer[]);
 int getRowCount(FILE *filePointer);
+Row getData(CSV *csv, int rowIndex, int colIndex);
 int freeCSV(CSV *csv);
 int freeCols(CSV *csv);
 int freeRows(CSV *csv);
-// int getData();
 
 #endif
