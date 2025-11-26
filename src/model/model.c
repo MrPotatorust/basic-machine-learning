@@ -4,24 +4,25 @@
 struct Model model_Constructor(){
     struct Model self;
 
-    // Dummy data for testing
-    int weightCount = 1;
-    
-    float *weights = malloc(weightCount * sizeof(float));
-    if (!weights){
-        perror("Could not initialize weights memory \n");
-        return self;
-    }
-    
-    self.weightCount = weightCount;
+    self.weights = NULL;
     self.bias = 0;
-    self.weights = weights;
+
+    self.labelName = NULL;
+    self.featureNames = NULL;
+    self.featureCount = 0;
+    self.data = NULL;
+
+    self.loss = 0.0;
+    self.learningRate = 0.0;
+    self.batchSize = 0;
+    self.epochs = 0;
 
     self.train = train;
     self.loadData = loadData;
     self.setTrainingConfig = setTrainingConfig;
     self.calculateLoss = calculateLoss;
     self.predict = predict;
+    self.resetWeights = resetWeights;
 
     return self;
 }
@@ -31,6 +32,8 @@ void loadData(struct Model *self, CSV *csv, char *labelName, char **featureNames
     self->labelName = labelName;
     self->featureNames = featureNames;
     self->featureCount = featureCount;
+
+    self->resetWeights(self);
 }
 
 void setTrainingConfig(struct Model *self, int epochs, float learningRate, float batchSize){
@@ -74,4 +77,26 @@ float predict(struct Model *self, float features[]){
     prediction += self->bias;
 
     return prediction;
+}
+
+
+void resetWeights(struct Model *self){
+
+    if(!self->featureCount){
+        perror("No features are set");
+        return;
+    }
+
+    float *weights = malloc(self->featureCount * sizeof(float));
+
+    if(!weights){
+        perror("Could not initialize memory for weights");
+        return;
+    }
+
+    for(int i = 0; i < self->featureCount; i++){
+        weights[i] = 0.0;
+    }
+
+    self->weights = weights;
 }
