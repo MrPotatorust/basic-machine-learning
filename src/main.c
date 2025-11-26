@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     // float prediction = model.predict(&model, features);
     // printf("Prediction %f \n", prediction);
 
-    model.calculateLoss(&model);
+    printf("Loss: %f \n", model.calculateLoss(&model));
 
     return 0;
 }

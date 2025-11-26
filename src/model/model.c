@@ -14,8 +14,7 @@ struct Model model_Constructor(){
     }
     
     self.weightCount = weightCount;
-    self.bias = 2;
-    weights[0] = 2.1;
+    self.bias = 0;
     self.weights = weights;
 
     self.train = train;
@@ -43,20 +42,26 @@ void setTrainingConfig(struct Model *self, int epochs, float learningRate, float
 void train(struct Model *self){
 
 
+
     printf("Training");
 };
 
 float calculateLoss(struct Model *self){
     int exampleCount = self->data->rowCount;
-    char *featureNames[] = {"total_bill"};
-    char *label = "tip";
-    
 
-    float predictionVal = self->predict(self, featureNames);
+    float lossAggregate = 0;
 
-    printf("predict %f \n", predictionVal);
+    Row *startFeaturePointer = NULL;
 
-    return predictionVal;
+    for(int i = 0; i < exampleCount; i++){
+        startFeaturePointer = &self->data->rows[i * self->data->collumnCount];
+        float label = getData(self->data, i, 1);
+
+        float predictionVal = self->predict(self, startFeaturePointer);
+        lossAggregate += predictionVal / label;
+    }
+
+    return lossAggregate/exampleCount;
 }
 
 float predict(struct Model *self, float features[]){
