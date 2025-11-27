@@ -28,12 +28,10 @@ int main(int argc, char *argv[])
 
     model.setTrainingConfig(&model, epochs, learningRate, batchSize);
 
-    // model.train(&model);
+    model.train(&model);
     // float features[] ={2.1};
     // float prediction = model.predict(&model, features);
     // printf("Prediction %f \n", prediction);
-
-    printf("Loss: %f \n", model.calculateLoss(&model));
 
     return 0;
 }
