@@ -46,6 +46,7 @@ void train(struct Model *self){
 
     self->loss = self->calculateLoss(self);
     
+    
 
     printf("  ====================================================== \n");
     printf("|| Weight: %f || Bias: %f || Loss: %f || \n", self->weights[0], self->bias, self->loss);
@@ -63,7 +64,7 @@ float calculateLoss(struct Model *self){
         float label = getData(self->data, i, 1);
 
         float predictionVal = self->predict(self, startFeaturePointer);
-        lossAggregate += fabs(label - predictionVal);
+        lossAggregate += pow(label - predictionVal, 2);
     }
 
 

@@ -31,7 +31,7 @@ struct Model {
 void loadData(struct Model *self, CSV *csv, char *labelName, char **featureNames, int featureCount);
 void setTrainingConfig(struct Model *self, int epochs, float learningRate, float batchSize);
 void train(struct Model *self);
-//? Right now the loss is calculated on all examples and calculates MAE
+//? Right now the loss is calculated on all examples and calculates MSE
 float calculateLoss(struct Model *self);
 //! Here you have to pass the same features as the model was trained with
 float predict(struct Model *self, float *features);
