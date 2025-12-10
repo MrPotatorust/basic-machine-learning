@@ -22,6 +22,9 @@ def main():
         'time': {'Lunch': 0, 'Dinner': 1}
     })
 
+    normalizedDf = normalizedDf.reindex(columns=['total_bill','sex', 'smoker', 'day', 'time', 'size', 'tip'])
+
+
     normalizedDf.to_csv('./dataset/normalized_tips.csv', index=False)
 
 if __name__ == "__main__":

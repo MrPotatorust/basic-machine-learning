@@ -59,9 +59,9 @@ float calculateLoss(struct Model *self){
     float lossAggregate = 0;
 
     
-    for(int i = 0; i < exampleCount; i++){
-        Row *startFeaturePointer = &self->data->rows[i * self->data->collumnCount];
-        float label = getData(self->data, i, 1);
+    for(int curCol = 0; curCol < exampleCount; curCol++){
+        Row *startFeaturePointer = &self->data->rows[curCol * self->data->collumnCount];
+        float label = getData(self->data, curCol, self->data->collumnCount+1);
 
         float predictionVal = self->predict(self, startFeaturePointer);
         lossAggregate += pow(label - predictionVal, 2);
@@ -74,8 +74,8 @@ float calculateLoss(struct Model *self){
 float predict(struct Model *self, float features[]){
     float prediction = 0;
     
-    for(int i = 0; i < self->featureCount; i++){
-        prediction += features[i] * self->weights[i];
+    for(int curCol = 0; curCol < self->featureCount; curCol++){
+        prediction += features[curCol] * self->weights[curCol];
     }
 
     prediction += self->bias;
@@ -103,4 +103,8 @@ void resetWeights(struct Model *self){
     }
 
     self->weights = weights;
+}
+
+float calculateWeightSlope(struct Model *self){
+
 }
