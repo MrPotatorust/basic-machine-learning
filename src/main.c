@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
     // char *featureNames[] = {"total_bill", "sex", "smoker", "day", "time", "size"};
     char *featureNames[] = {"total_bill"};
-    int featureCount = 1;
+    int featureCount = csv->collumnCount - 1;
     char *labelName = "tip";
 
     model.loadData(&model, csv, labelName, featureNames, featureCount);

@@ -124,16 +124,16 @@ Row getData(CSV *csv, int rowIndex, int colIndex){
     int arrIndex;
     
     if(!csv || !csv->rows){
-        perror("Could not getData from CSV, CSV doesnt exist");
+        printf("Could not getData from CSV, CSV doesnt exist \n");
         return 0;
     }
 
     if(rowIndex > csv->rowCount-1){
-        perror("Could not getData from CSV, the rowIndex is too big");
+        printf("Could not getData from CSV, the rowIndex is too big \n");
         return 0;
     }
     if(colIndex > csv->collumnCount-1){
-        perror("Could not getData from CSV, the colIndex is too big");
+        printf("Could not getData from CSV, the colIndex is too big \n");
         return 0;
     }
     

@@ -61,7 +61,7 @@ float calculateLoss(struct Model *self){
     
     for(int curCol = 0; curCol < exampleCount; curCol++){
         Row *startFeaturePointer = &self->data->rows[curCol * self->data->collumnCount];
-        float label = getData(self->data, curCol, self->data->collumnCount+1);
+        float label = getData(self->data, curCol, self->featureCount);
 
         float predictionVal = self->predict(self, startFeaturePointer);
         lossAggregate += pow(label - predictionVal, 2);
