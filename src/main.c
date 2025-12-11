@@ -15,8 +15,7 @@ int main(int argc, char *argv[])
 
     struct Model model = model_Constructor();
 
-    // char *featureNames[] = {"total_bill", "sex", "smoker", "day", "time", "size"};
-    char *featureNames[] = {"total_bill"};
+    char *featureNames[] = {"total_bill", "sex", "smoker", "day", "time", "size"};
     int featureCount = csv->collumnCount - 1;
     char *labelName = "tip";
 
