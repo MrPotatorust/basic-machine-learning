@@ -20,6 +20,7 @@ struct Model
     int epochs;
 
     void (*train)(struct Model *self);
+    void (*trainIteration)(struct Model *self);
     void (*loadData)(struct Model *self, CSV *csv, char *labelName, char **featureNames, int featureCount);
     void (*setTrainingConfig)(struct Model *self, int epochs, float learningRate, float batchSize);
     float (*calculateWeightSlope)(struct Model *self, int weightIndex);
@@ -32,6 +33,7 @@ struct Model
 void loadData(struct Model *self, CSV *csv, char *labelName, char **featureNames, int featureCount);
 void setTrainingConfig(struct Model *self, int epochs, float learningRate, float batchSize);
 void train(struct Model *self);
+void trainIteration(struct Model *self);
 float calculateWeightSlope(struct Model *self, int weightIndex);
 float calculateBiasSlope(struct Model *self);
 //? Right now the loss is calculated on all examples and calculates MSE

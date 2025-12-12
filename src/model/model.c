@@ -19,6 +19,7 @@ struct Model model_Constructor()
     self.epochs = 0;
 
     self.train = train;
+    self.trainIteration = trainIteration;
     self.loadData = loadData;
     self.setTrainingConfig = setTrainingConfig;
     self.calculateWeightSlope = calculateWeightSlope;
@@ -50,16 +51,38 @@ void setTrainingConfig(struct Model *self, int epochs, float learningRate, float
 void train(struct Model *self)
 {
 
-    self->loss = self->calculateLoss(self);
+    for(int i = 0; i < 200; i++){
+        self->trainIteration(self);
+    }
 
+    printf("Finished training, epochs: %i \n", self->epochs);
+};
+
+void trainIteration(struct Model *self){
+    
+    self->epochs++;
+    
     float *newWeights = malloc(self->featureCount * sizeof(float));
+    
+    for(int curWeightIndex = 0; curWeightIndex < self->featureCount; curWeightIndex++){
+        float weightSlope = self->calculateWeightSlope(self, curWeightIndex);
+        newWeights[curWeightIndex] = self->weights[curWeightIndex] - (self->learningRate * weightSlope);
+    }
+    
+    float biasSlope = self->calculateBiasSlope(self);
+    float newBias = self->bias - (self->learningRate * biasSlope);
 
-    self->calculateWeightSlope(self, 0);
-    self->calculateBiasSlope(self);
+    
+    free(self->weights);
+    
+    self->weights = newWeights;
+    self->bias = newBias;
+    
+    self->loss = self->calculateLoss(self);
 
     printf("  ====================================================== \n");
     printf("|| Weight: %f || Bias: %f || Loss: %f || \n", self->weights[0], self->bias, self->loss);
-};
+}
 
 float calculateWeightSlope(struct Model *self, int weightIndex)
 {
@@ -127,7 +150,7 @@ float predict(struct Model *self, float features[])
     }
 
     prediction += self->bias;
-
+    
     return prediction;
 }
 
